@@ -10,13 +10,13 @@ class TreeNode {
 
   /** sumValues(): add up all values of invoking node and its children.
    * Returns sum as an integer. */
-  sumValues(current=this, sum=this.val) {
+  sumValues(current=this) {
     // start at this
-    debugger;
+    let sum = current.val;
     //add it to the sum of its children
     if (current.children.length !== 0){
       for (let child of current.children){
-        sum + current.sumValues(child, sum);
+        sum += child.sumValues(child);
       }
     }
     return sum;
