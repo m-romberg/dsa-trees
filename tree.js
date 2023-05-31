@@ -26,14 +26,30 @@ class TreeNode {
    * children, count how many nodes have even values. Returns that count as
    * an integer. */
   countEvens() {
+    let count = 0;
+    if (this.val % 2 === 0) count++;
 
+    if (this.children.length !== 0){
+      for (let child of this.children){
+        count += child.countEvens();
+      }
+    }
+    return count;
   }
 
   /** numGreater(lowerBound): starting from the invoking node and moving through
    * its children, return a count of the number of nodes whose value is greater
    * than lowerBound. */
   numGreater(lowerBound){
+    let count = 0;
+    if (this.val > lowerBound) count++;
 
+    if (this.children.length !== 0){
+      for (let child of this.children){
+        count += child.numGreater(lowerBound);
+      }
+    }
+    return count;
   }
 }
 
@@ -51,39 +67,17 @@ class Tree {
 
   /** countEvens(): count all nodes in the tree that have even values. */
   countEvens() {
+    if (!this.root) return 0;
+    return this.root.countEvens();
 
   }
 
   /** numGreater(lowerBound): return a count of the number of nodes
    * whose value is greater than lowerBound. */
   numGreater(lowerBound) {
-
+    if (!this.root) return 0;
+    return this.root.numGreater(lowerBound);
   }
 }
-
-let n = new TreeNode(1);
-let n2 = new TreeNode(2);
-let n3 = new TreeNode(3);
-let n4 = new TreeNode(4);
-let n5 = new TreeNode(5);
-let n6 = new TreeNode(6);
-let n7 = new TreeNode(7);
-let n8 = new TreeNode(8);
-
-n.children = [n2, n3, n4];
-
-n4.children.push(n5, n6);
-n6.children.push(n7);
-n7.children.push(n8);
-
-const largeTree = new Tree(n);
-
-// n.sumValues();
-
-let nSmall = new TreeNode(1);
-let nSmall2 = new TreeNode(2);
-nSmall.children.push(nSmall2);
-console.log(n.sumValues());
-
 
 module.exports = { Tree, TreeNode };
