@@ -10,13 +10,13 @@ class TreeNode {
 
   /** sumValues(): add up all values of invoking node and its children.
    * Returns sum as an integer. */
-  sumValues(current=this) {
+  sumValues() {
     // start at this
-    let sum = current.val;
+    let sum = this.val;
     //add it to the sum of its children
-    if (current.children.length !== 0){
-      for (let child of current.children){
-        sum += child.sumValues(child);
+    if (this.children.length !== 0){
+      for (let child of this.children){
+        sum += child.sumValues();
       }
     }
     return sum;
@@ -44,6 +44,8 @@ class Tree {
 
   /** sumValues(): add up all values in the tree. */
   sumValues() {
+    if (!this.root) return 0;
+    return this.root.sumValues();
 
   }
 
@@ -76,7 +78,12 @@ n7.children.push(n8);
 
 const largeTree = new Tree(n);
 
-n.sumValues();
+// n.sumValues();
+
+let nSmall = new TreeNode(1);
+let nSmall2 = new TreeNode(2);
+nSmall.children.push(nSmall2);
+console.log(n.sumValues());
 
 
 module.exports = { Tree, TreeNode };
