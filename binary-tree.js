@@ -38,7 +38,7 @@ class BinaryTreeNode {
 	/** minDepth(): return the minimum depth from the invoking node -- that is,
 	 * the length of the shortest path from the invoking node to a leaf. */
 	minDepth() {
-    if (this.right === null & this.left === null) return 1;
+		if (this.right === null & this.left === null) return 1;
 		let depth = 0;
 		let depthLeft = Infinity;
 		let depthRight = Infinity;
@@ -53,8 +53,26 @@ class BinaryTreeNode {
 	 * that is larger than lowerBound. Return null if no such value exists. */
 
 	nextLarger(lowerBound) {
-    
-  }
+		let stack = [this];
+		let smallest = Infinity;
+		while (stack.length) {
+			let next = stack.pop();
+			if (next.val > lowerBound && next.val < smallest) {
+				smallest = next.val;
+			}
+			if (next.left !== null) {
+				stack.push(next.left);
+			}
+			if (next.right !== null) {
+				stack.push(next.right);
+			}
+		}
+		//means nothing was found
+		if (smallest === Infinity){
+			smallest = null;
+		}
+		return smallest;
+	}
 }
 
 class BinaryTree {
@@ -89,20 +107,24 @@ class BinaryTree {
 	// this is a stack or recursion problem; we'll use recursion
 
 	minDepth() {
-    if (!this.root) return 0;
+		if (!this.root) return 0;
 		return this.root.minDepth();
-  }
+	}
 
 	/** nextLarger(lowerBound): return the smallest value in the tree
 	 * that is larger than lowerBound. Return null if no such value exists. */
 
-	nextLarger(lowerBound) {}
+	nextLarger(lowerBound) {
+		if (!this.root) return null;
+		return this.root.nextLarger(lowerBound);
+	}
+
 
 	/** Further study!
 	 * areCousins(node1, node2): determine whether two nodes are cousins
 	 * (i.e. are at the same level but have different parents. ) */
 
-	areCousins(node1, node2) {}
+	areCousins(node1, node2) { }
 }
 
 let j = new BinaryTreeNode(1);
